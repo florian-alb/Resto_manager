@@ -16,7 +16,6 @@ class Restaurant:
         self.customers.append(customer)
 
     def add_to_orders_list(self, order: Order):
-        print(self.orders)
         self.orders.append(order)
 
     def show_menu(self):
