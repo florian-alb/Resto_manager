@@ -6,7 +6,7 @@ class Customer:
     total_spend = 0
     orders = []
 
-    def __init__(self, firstname: str, lastname: str, phone_number: str, orders=None, customer_id=None):
+    def __init__(self, firstname: str, lastname: str, phone_number: str, customer_id=None, orders=None):
         if customer_id is None:
             Customer.ID += 1
             self.ID = Customer.ID
@@ -66,3 +66,15 @@ class Customer:
             'total_spend': self.total_spend,
             "orders": [order.to_dict() for order in self.orders]
         }
+
+    @classmethod
+    def from_dict(cls, json_data):
+        if json_data['ID'] >= Customer.ID:
+            Customer.ID = json_data['ID']
+        return cls(
+            json_data['firstname'],
+            json_data['lastname'],
+            json_data['phone_number'],
+            json_data['ID'],
+            [Order.from_dict(order_data, cls) for order_data in json_data['orders']]
+        )

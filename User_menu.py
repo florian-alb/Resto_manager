@@ -69,6 +69,8 @@ def display_menu(restaurant: Restaurant):
             dish = restaurant.find_dish_by_id(int(dish_id))
             if dish:
                 order.add_to_order(dish)
+                # save the customer
+                save_customer_to_json(restaurant.customers)
                 print("Dish added to the order successfully.")
             else:
                 print("Dish not found.")

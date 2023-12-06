@@ -26,5 +26,12 @@
     "description": "fraises",
     "price": 9.0,
     "category": "Dessert"
+  },
+  {
+    "ID": 5,
+    "name": "oeufs en gel\u00e9e",
+    "description": "oeufs durs de mamie",
+    "price": 8.5,
+    "category": "Starter"
   }
 ]

@@ -2,6 +2,7 @@ import json
 
 from Models.Customer import Customer
 from Models.Dish import Dish
+from Models.Order import Order
 
 
 def save_menu_to_json(menu):
@@ -25,14 +26,19 @@ def menu_from_json():
         print("Dishes file not found. No dishes loaded")
         return []
 
-# def customers_from_json():
-#     customers = []
-#     try:
-#         with open('Data/jsons/clients.json', 'r') as json_file:
-#             data = json.load(json_file)
-#             for customers_data in data:
-#                 customers.append(Customer.from_json(customers_data))
-#         return customers
-#     except FileNotFoundError:
-#         print("Customers file not found. No customers loaded")
-#         return customers
+
+def customers_from_json():
+    try:
+        with open('Data/jsons/clients.json', 'r') as json_file:
+            data = json.load(json_file)
+            return [Customer.from_dict(customers_data) for customers_data in data]
+    except FileNotFoundError:
+        print("Customers file not found. No customers loaded")
+        return []
+
+
+def get_orders(customers):
+    orders = []
+    for customer in customers:
+        orders += customer.orders
+    return orders
