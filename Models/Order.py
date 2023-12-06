@@ -1,7 +1,4 @@
-import json
-
 from Models import Customer, Dish
-from Models.Dish import *
 
 
 class Order:
@@ -32,17 +29,9 @@ class Order:
         print(f"Total price: {self.total_price}€")
         print("------------------\n")
 
-    def to_json(self):
+    def to_dict(self):
         return {
-            'id': self.ID,
+            'ID': self.ID,
             'dishes': [dish.to_json() for dish in self.order],
             'total price': self.total_price,
         }
-
-    @classmethod
-    def from_json(cls, order_data):
-        order = []
-        for dish_data in order_data['dishes']:
-            print("dish data", dish_data)
-            order.append(Dish.from_json(dish_data))
-        return order

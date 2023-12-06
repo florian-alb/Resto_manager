@@ -21,27 +21,8 @@ class Dish:
         self.price = price
 
         if not isinstance(category, Category):
-            print("category is :", category)
             raise ValueError(f"Invalid category: {category}")
         self.category = category
-
-    def to_json(self):
-        return {
-            'id': self.ID,
-            'name': self.name,
-            'description': self.description,
-            'price': self.price,
-            'category': self.category.value
-        }
-
-    @classmethod
-    def from_json(cls, json_data):
-        return cls(
-            json_data['name'],
-            json_data['description'],
-            json_data['price'],
-            Category(json_data['category'])
-        )
 
     def modify_dish_name(self, name: str):
         self.name = name
@@ -81,3 +62,24 @@ class Dish:
 
         if price != 0:
             self.price = price
+
+    def to_dict(self):
+        return {
+            'ID': self.ID,
+            'name': self.name,
+            'description': self.description,
+            'price': self.price,
+            'category': self.category.value
+        }
+
+    @classmethod
+    def from_dict(cls, json_data):
+        if json_data['ID'] >= Dish.ID:
+            Dish.ID = json_data['ID']
+        return cls(
+            json_data['name'],
+            json_data['description'],
+            json_data['price'],
+            Category(json_data['category']),
+            json_data['ID']
+        )

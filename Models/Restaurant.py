@@ -1,8 +1,6 @@
-from typing import Any
-
 from Models.Customer import Customer
 from Models.Order import Order
-from Models.Dish import Dish, Category
+from Models.Dish import Dish
 
 
 class Restaurant:
@@ -15,7 +13,6 @@ class Restaurant:
         self.menu.append(dish)
 
     def add_to_customers_list(self, customer: Customer):
-        print(len(self.customers))
         self.customers.append(customer)
 
     def add_to_orders_list(self, order: Order):

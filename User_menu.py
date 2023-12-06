@@ -1,4 +1,5 @@
-from Data.Save import save_menu_to_json, save_customer_to_json
+#from Data.Save import save_menu_to_json, save_customer_to_json
+from Data.Save import save_menu_to_json
 from Models.Customer import Customer
 from Models.Order import Order
 from Models.Dish import Dish
@@ -43,7 +44,6 @@ def display_menu(restaurant: Restaurant):
         restaurant.add_to_menu(dish)
         save_menu_to_json(restaurant.menu)
         dish.show()
-        save_menu_to_json(dish)
         print("Recipe created successfully.")
     elif choice == "5":
         restaurant.show_menu()
@@ -104,7 +104,7 @@ def create_order(restaurant: Restaurant):
                 restaurant.add_to_orders_list(order)
                 print("Order created successfully.")
                 edit_order(order, restaurant)
-                save_customer_to_json(restaurant.customers)
+                #save_customer_to_json(restaurant.customers)
             else:
                 print("Customer not found.")
 
@@ -120,13 +120,13 @@ def create_order(restaurant: Restaurant):
             print("Order created successfully.")
 
             # save the customer
-            save_customer_to_json(restaurant.customers)
+            #save_customer_to_json(restaurant.customers)
 
             # add dish to the order
             edit_order(order, restaurant)
 
             # save the customer
-            save_customer_to_json(restaurant.customers)
+            #save_customer_to_json(restaurant.customers)
         elif choice == "3":
             return
         else:

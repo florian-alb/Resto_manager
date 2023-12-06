@@ -5,33 +5,9 @@ from Models.Dish import Dish
 
 
 def save_menu_to_json(menu):
-    dish_json = json.dumps([dish.to_json() for dish in menu], indent=2)
+    dish_json = json.dumps([dish.to_dict() for dish in menu], indent=2)
     with open('Data/jsons/plats.json', 'w') as json_file:
         json_file.write(dish_json)
-
-
-def menu_from_json():
-    dishes = []
-    try:
-        with open('Data/jsons/plats.json', 'r') as json_file:
-            data = json.load(json_file)
-            for dish_data in data:
-                dishes.append(Dish.from_json(dish_data))
-        return dishes
-    except FileNotFoundError:
-        print("Dishes file not found. No dishes loaded")
-
-
-def customers_from_json():
-    customers = []
-    try:
-        with open('Data/jsons/clients.json', 'r') as json_file:
-            data = json.load(json_file)
-            for customers_data in data:
-                customers.append(Customer.from_json(customers_data))
-        return customers
-    except FileNotFoundError:
-        print("Customers file not found. No customers loaded")
 
 
 def save_customer_to_json(customers):
@@ -39,3 +15,25 @@ def save_customer_to_json(customers):
 
     with open('Data/jsons/clients.json', 'w') as json_file:
         json_file.write(dish_json)
+
+
+def menu_from_json():
+    try:
+        with open('Data/jsons/plats.json', 'r') as json_file:
+            data = json.load(json_file)
+            return [Dish.from_dict(dish_data) for dish_data in data]
+    except FileNotFoundError:
+        print("Dishes file not found. No dishes loaded")
+        return []
+
+# def customers_from_json():
+#     customers = []
+#     try:
+#         with open('Data/jsons/clients.json', 'r') as json_file:
+#             data = json.load(json_file)
+#             for customers_data in data:
+#                 customers.append(Customer.from_json(customers_data))
+#         return customers
+#     except FileNotFoundError:
+#         print("Customers file not found. No customers loaded")
+#         return customers

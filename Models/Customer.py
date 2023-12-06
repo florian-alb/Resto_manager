@@ -50,25 +50,12 @@ class Customer:
         if phone_number != "":
             self.phone_number = phone_number
 
-    def to_json(self):
+    def to_dict(self):
         return {
-            'id': self.ID,
-            'firstname': self.firstname,
-            'lastname': self.lastname,
-            'phone': self.phone_number,
-            'total spend': self.total_spend,
-            'orders': [order.to_json() for order in self.orders]
+            "ID": self.ID,
+            "firstname": self.firstname,
+            "lastname": self.lastname,
+            "phone_number": self.phone_number,
+            'total_spend': self.total_spend,
+            "orders": [order.to_dict() for order in self.orders]
         }
-
-    @classmethod
-    def from_json(cls, customer_data):
-        customer = cls(
-            firstname=customer_data['firstname'],
-            lastname=customer_data['lastname'],
-            phone_number=customer_data['phone'],
-            orders=[]
-        )
-
-        for order_data in customer_data['orders']:
-            customer.orders.append(Order.from_json(order_data))
-        return customer

@@ -1,23 +1,30 @@
 [
   {
-    "id": 1,
-    "name": "Salade C\u00e9sar",
-    "description": "Salade, poulet, parmesan, croutons",
-    "price": 12.5,
-    "category": "Starter"
-  },
-  {
-    "id": 2,
-    "name": "Boeuf Bourguignon",
-    "description": "Boeuf mijot\u00e9 dans du vin rouge",
-    "price": 18.75,
+    "ID": 1,
+    "name": "pates carbo",
+    "description": "au top",
+    "price": 20.0,
     "category": "Main course"
   },
   {
-    "id": 3,
-    "name": "Tiramisu",
-    "description": "Dessert italien au caf\u00e9",
+    "ID": 2,
+    "name": "salade cesar",
+    "description": "salade oklm",
+    "price": 12.0,
+    "category": "Starter"
+  },
+  {
+    "ID": 3,
+    "name": "gato",
+    "description": "chocolat",
     "price": 8.0,
+    "category": "Dessert"
+  },
+  {
+    "ID": 4,
+    "name": "tarte",
+    "description": "fraises",
+    "price": 9.0,
     "category": "Dessert"
   }
 ]
