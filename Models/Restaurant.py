@@ -2,37 +2,40 @@ from typing import Any
 
 from Models.Customer import Customer
 from Models.Order import Order
-from Models.Recipie import Recipie, Category
+from Models.Dish import Dish, Category
 
 
 class Restaurant:
-    customers = []
-    menu = []
-    orders = []
+    def __init__(self):
+        self.customers = []
+        self.orders = []
+        self.menu = []
 
-    def add_to_menu(self, recipie: Recipie):
-        self.menu.append(recipie)
+    def add_to_menu(self, dish: Dish):
+        self.menu.append(dish)
 
     def add_to_customers_list(self, customer: Customer):
+        print(len(self.customers))
         self.customers.append(customer)
 
     def add_to_orders_list(self, order: Order):
+        print(self.orders)
         self.orders.append(order)
 
     def show_menu(self):
         print("\n------MENU------")
         print("\n------Starters------")
-        for recipe in self.menu:
-            if recipe.category.value == "Starter":
-                recipe.show()
+        for dish in self.menu:
+            if dish.category.value == "Starter":
+                dish.show()
         print("\n------Mains------")
-        for recipe in self.menu:
-            if recipe.category.value == "Main course":
-                recipe.show()
+        for dish in self.menu:
+            if dish.category.value == "Main course":
+                dish.show()
         print("\n------Desserts------")
-        for recipe in self.menu:
-            if recipe.category.value == "Dessert":
-                recipe.show()
+        for dish in self.menu:
+            if dish.category.value == "Dessert":
+                dish.show()
 
     def show_orders(self):
         print("\n------ORDERS LIST------")
@@ -50,10 +53,10 @@ class Restaurant:
                 return customer
         return None
 
-    def find_recipie_by_name(self, recipie_name: str) -> Recipie | None:
-        for recipie in self.menu:
-            if recipie.name == recipie_name:
-                return recipie
+    def find_dish_by_id(self, dish_id: int) -> Dish | None:
+        for dish in self.menu:
+            if dish.ID == dish_id:
+                return dish
         return None
 
     def find_order_by_id(self, order_id: int) -> Order | None:

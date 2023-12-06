@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Salade C\u00e9sar",
+    "description": "Salade, poulet, parmesan, croutons",
+    "price": 12.5,
+    "category": "Starter"
+  },
+  {
+    "id": 2,
+    "name": "Boeuf Bourguignon",
+    "description": "Boeuf mijot\u00e9 dans du vin rouge",
+    "price": 18.75,
+    "category": "Main course"
+  },
+  {
+    "id": 3,
+    "name": "Tiramisu",
+    "description": "Dessert italien au caf\u00e9",
+    "price": 8.0,
+    "category": "Dessert"
+  }
+]
