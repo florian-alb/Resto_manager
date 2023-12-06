@@ -1,5 +1,4 @@
-#from Data.Save import save_menu_to_json, save_customer_to_json
-from Data.Save import save_menu_to_json
+from Data.Save import save_menu_to_json, save_customer_to_json
 from Models.Customer import Customer
 from Models.Order import Order
 from Models.Dish import Dish
@@ -28,6 +27,7 @@ def display_menu(restaurant: Restaurant):
         phone_number = input("Enter the customer's phone number: ")
         customer = Customer(first_name, last_name, phone_number)
         restaurant.add_to_customers_list(customer)
+        save_customer_to_json(restaurant.customers)
         print("Customer created successfully.")
     elif choice == "3":
         restaurant.show_customers()
@@ -36,6 +36,7 @@ def display_menu(restaurant: Restaurant):
         if customer:
             customer.update_customer()
             customer.show()
+            save_customer_to_json(restaurant.customers)
             print("Customer modified successfully.")
         else:
             print("Customer not found.")

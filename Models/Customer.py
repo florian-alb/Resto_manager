@@ -6,9 +6,16 @@ class Customer:
     total_spend = 0
     orders = []
 
-    def __init__(self, firstname: str, lastname: str, phone_number: str, orders=None):
+    def __init__(self, firstname: str, lastname: str, phone_number: str, orders=None, customer_id=None):
+        if customer_id is None:
+            Customer.ID += 1
+            self.ID = Customer.ID
+        else:
+            self.ID = customer_id
+
         if orders is None:
             orders = []
+
         self.firstname = firstname
         self.lastname = lastname
         self.phone_number = phone_number

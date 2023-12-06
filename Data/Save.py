@@ -11,8 +11,7 @@ def save_menu_to_json(menu):
 
 
 def save_customer_to_json(customers):
-    dish_json = json.dumps([customer.to_json() for customer in customers], indent=2)
-
+    dish_json = json.dumps([customer.to_dict() for customer in customers], indent=2)
     with open('Data/jsons/clients.json', 'w') as json_file:
         json_file.write(dish_json)
 
