@@ -4,10 +4,10 @@ from Models import Customer, Dish
 class Order:
     ID = 0
     total_price = 0
-    order = []
 
     def __init__(self, customer: Customer):
         self.customer = customer
+        self.order = []
         Order.ID += 1
         self.ID = Order.ID
         customer.orders.append(self)
@@ -32,6 +32,6 @@ class Order:
     def to_dict(self):
         return {
             'ID': self.ID,
-            'dishes': [dish.to_json() for dish in self.order],
+            'dishes': [dish.to_dict() for dish in self.order],
             'total price': self.total_price,
         }

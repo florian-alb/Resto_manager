@@ -105,7 +105,7 @@ def create_order(restaurant: Restaurant):
                 restaurant.add_to_orders_list(order)
                 print("Order created successfully.")
                 edit_order(order, restaurant)
-                #save_customer_to_json(restaurant.customers)
+                save_customer_to_json(restaurant.customers)
             else:
                 print("Customer not found.")
 
@@ -121,13 +121,13 @@ def create_order(restaurant: Restaurant):
             print("Order created successfully.")
 
             # save the customer
-            #save_customer_to_json(restaurant.customers)
+            save_customer_to_json(restaurant.customers)
 
             # add dish to the order
             edit_order(order, restaurant)
 
             # save the customer
-            #save_customer_to_json(restaurant.customers)
+            save_customer_to_json(restaurant.customers)
         elif choice == "3":
             return
         else:
@@ -144,5 +144,6 @@ def edit_order(order: Order, restaurant: Restaurant):
         if dish:
             order.add_to_order(dish)
             print("Dish added to the order successfully.")
+            save_customer_to_json(restaurant.customers)
         else:
             print("Dish not found.")

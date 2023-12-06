@@ -31,7 +31,7 @@ class Dish:
         self.price = price
 
     def show(self):
-        print(f"{self.name.upper()} - {self.description} - {self.price}€ ")
+        print(f"({self.ID}) - {self.name.upper()} - {self.description} - {self.price}€ ")
 
     @staticmethod
     def create_dish():
