@@ -4,27 +4,20 @@ from Models.Order import Order
 class Customer:
     ID = 0
     total_spend = 0
-    orders = []
 
-    def __init__(self, firstname: str, lastname: str, phone_number: str, customer_id=None, orders=None):
+    def __init__(self, firstname: str, lastname: str, phone_number: str, customer_id=None):
         if customer_id is None:
             Customer.ID += 1
             self.ID = Customer.ID
         else:
             self.ID = customer_id
 
-        if orders is None:
-            orders = []
-
         self.firstname = firstname
         self.lastname = lastname
         self.phone_number = phone_number
-        Customer.ID += 1
-        self.ID = Customer.ID
-        self.orders = orders
 
     def add_to_note(self, order: Order):
-        self.total_spend = order.total_price
+        self.total_spend += order.get_price()
 
     def show(self):
         print(
@@ -32,7 +25,6 @@ class Customer:
             f"{self.firstname} - "
             f"{self.lastname} - "
             f"{self.phone_number} - "
-            f"Order count: {len(self.orders)} - "
             f"total spend {self.total_spend}€ ")
 
     @staticmethod
@@ -59,22 +51,20 @@ class Customer:
 
     def to_dict(self):
         return {
-            "ID": self.ID,
+            "customer_id": self.ID,
             "firstname": self.firstname,
             "lastname": self.lastname,
             "phone_number": self.phone_number,
             'total_spend': self.total_spend,
-            "orders": [order.to_dict() for order in self.orders]
         }
 
     @classmethod
     def from_dict(cls, json_data):
-        if json_data['ID'] >= Customer.ID:
-            Customer.ID = json_data['ID']
+        if json_data['customer_id'] >= Customer.ID:
+            Customer.ID = json_data['customer_id']
         return cls(
             json_data['firstname'],
             json_data['lastname'],
             json_data['phone_number'],
-            json_data['ID'],
-            [Order.from_dict(order_data, cls) for order_data in json_data['orders']]
+            json_data['customer_id']
         )

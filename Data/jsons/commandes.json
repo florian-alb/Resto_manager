@@ -1,0 +1,43 @@
+[
+  {
+    "order_id": 1,
+    "customer_id": 1,
+    "is_payed": false,
+    "order_items": {
+      "Main course": [
+        {
+          "quantity": 1,
+          "dish": {
+            "ID": 1,
+            "name": "pates carbo",
+            "description": "au top",
+            "price": 20.0,
+            "category": "Main course"
+          }
+        }
+      ],
+      "Dessert": [
+        {
+          "quantity": 2,
+          "dish": {
+            "ID": 3,
+            "name": "gato",
+            "description": "chocolat",
+            "price": 8.0,
+            "category": "Dessert"
+          }
+        },
+        {
+          "quantity": 1,
+          "dish": {
+            "ID": 4,
+            "name": "tarte",
+            "description": "fraises",
+            "price": 9.0,
+            "category": "Dessert"
+          }
+        }
+      ]
+    }
+  }
+]

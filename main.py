@@ -1,4 +1,4 @@
-from Data.Save import menu_from_json, customers_from_json, get_orders
+from Data.Save import menu_from_json, customers_from_json, orders_from_json
 from Models.Restaurant import Restaurant
 from User_menu import display_menu
 from Models.Customer import *
@@ -9,7 +9,7 @@ if __name__ == '__main__':
     # data load
     resto.menu = menu_from_json()
     resto.customers = customers_from_json()
-    resto.orders = get_orders(resto.customers)
+    resto.orders = orders_from_json()
 
     while True:
         display_menu(resto)

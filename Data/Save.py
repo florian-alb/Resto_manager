@@ -1,4 +1,5 @@
 import json
+from json import JSONDecodeError
 
 from Models.Customer import Customer
 from Models.Dish import Dish
@@ -15,6 +16,12 @@ def save_customer_to_json(customers):
     dish_json = json.dumps([customer.to_dict() for customer in customers], indent=2)
     with open('Data/jsons/clients.json', 'w') as json_file:
         json_file.write(dish_json)
+
+
+def save_order_to_json(orders):
+    order_json = json.dumps([order.to_dict() for order in orders], indent=2)
+    with open('Data/jsons/commandes.json', 'w') as json_file:
+        json_file.write(order_json)
 
 
 def menu_from_json():
@@ -35,10 +42,19 @@ def customers_from_json():
     except FileNotFoundError:
         print("Customers file not found. No customers loaded")
         return []
+    except JSONDecodeError:
+        print("Customers file is empty. No customers loaded")
+        return []
 
 
-def get_orders(customers):
-    orders = []
-    for customer in customers:
-        orders += customer.orders
-    return orders
+def orders_from_json():
+    try:
+        with open('Data/jsons/commandes.json', 'r') as json_file:
+            data = json.load(json_file)
+            return [Order.from_dict(order_data) for order_data in data]
+    except FileNotFoundError:
+        print("Orders file not found. No order loaded")
+        return []
+    except JSONDecodeError:
+        print("Orders file is empty. No order loaded")
+        return []

@@ -36,7 +36,7 @@ class Restaurant:
     def show_orders(self):
         print("\n------ORDERS LIST------")
         for order in self.orders:
-            order.show_order()
+            order.show_order(self)
 
     def show_customers(self):
         print("\n------CUSTOMER LIST------")

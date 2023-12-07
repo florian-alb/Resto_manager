@@ -1,4 +1,4 @@
-from Data.Save import save_menu_to_json, save_customer_to_json
+from Data.Save import save_menu_to_json, save_customer_to_json, save_order_to_json
 from Models.Customer import Customer
 from Models.Order import Order
 from Models.Dish import Dish
@@ -69,8 +69,8 @@ def display_menu(restaurant: Restaurant):
             dish = restaurant.find_dish_by_id(int(dish_id))
             if dish:
                 order.add_to_order(dish)
-                # save the customer
-                save_customer_to_json(restaurant.customers)
+                # save the order
+                save_order_to_json(restaurant.orders)
                 print("Dish added to the order successfully.")
             else:
                 print("Dish not found.")
@@ -103,11 +103,14 @@ def create_order(restaurant: Restaurant):
             customer_id = int(input("Enter the ID of the customer for the new order: "))
             customer = restaurant.find_customer_by_id(customer_id)
             if customer:
-                order = Order(customer)
+
+                # create order
+                order = Order(customer.ID)
                 restaurant.add_to_orders_list(order)
                 print("Order created successfully.")
                 edit_order(order, restaurant)
-                save_customer_to_json(restaurant.customers)
+                # order save made in edit_order()
+
             else:
                 print("Customer not found.")
 
@@ -117,19 +120,19 @@ def create_order(restaurant: Restaurant):
             restaurant.add_to_customers_list(customer)
             print("Customer created successfully.")
 
-            # create order
-            order = Order(customer)
-            restaurant.add_to_orders_list(order)
-            print("Order created successfully.")
-
             # save the customer
             save_customer_to_json(restaurant.customers)
+
+            # create order
+            order = Order(customer.ID)
+            restaurant.add_to_orders_list(order)
+            print("Order created successfully.")
 
             # add dish to the order
             edit_order(order, restaurant)
 
-            # save the customer
-            save_customer_to_json(restaurant.customers)
+            # save the order
+            save_order_to_json(restaurant.orders)
         elif choice == "3":
             return
         else:
@@ -146,6 +149,7 @@ def edit_order(order: Order, restaurant: Restaurant):
         if dish:
             order.add_to_order(dish)
             print("Dish added to the order successfully.")
-            save_customer_to_json(restaurant.customers)
+            # save the order
+            save_order_to_json(restaurant.orders)
         else:
             print("Dish not found.")
