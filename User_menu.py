@@ -130,7 +130,7 @@ def create_order(restaurant: Restaurant):
                 order = Order(customer.ID)
                 restaurant.add_to_orders_list(order)
                 print("Order created successfully.")
-                edit_order(order, restaurant)
+                edit_order(order, restaurant, customer)
                 # order save made in edit_order()
 
             else:
@@ -154,7 +154,7 @@ def create_order(restaurant: Restaurant):
             save_order_to_json(restaurant.orders)
 
             # add dish to the order
-            edit_order(order, restaurant)
+            edit_order(order, restaurant, customer)
 
             # save the order
             save_order_to_json(restaurant.orders)
@@ -164,9 +164,12 @@ def create_order(restaurant: Restaurant):
             print("Invalid option. Please choose a valid option.")
 
 
-def edit_order(order: Order, restaurant: Restaurant):
+def edit_order(order: Order, restaurant: Restaurant, customer: Customer):
     while True:
-        restaurant.show_menu()
+
+        pref = restaurant.get_customer_preferences(customer)
+
+        restaurant.show_menu(pref)
         dish_id = input("Enter the ID of the dish to add to the order or 0 to exit: ")
         if dish_id == "0":
             return

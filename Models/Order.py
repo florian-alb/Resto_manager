@@ -58,8 +58,10 @@ class Order:
         print(f"Total price: {self.get_price()}€")
         print("------------------\n")
 
-    def sort_order(self):
-        consolidated_order = {"Starter": [], "Main course": [], "Dessert": []}
+    def sort_order(self, consolidated_order=None):
+        if consolidated_order is None:
+            consolidated_order = {"Starter": [], "Main course": [], "Dessert": []}
+
         for category, dish_list in self.order.items():
             for dish in dish_list:
                 found = False

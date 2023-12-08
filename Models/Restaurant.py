@@ -7,6 +7,8 @@ from Models.Dish import Dish
 
 
 class Restaurant:
+    mort_popular = {"Starter": "", "Main course": "", "Dessert": ""}
+
     def __init__(self):
         self.customers = []
         self.orders = []
@@ -21,8 +23,18 @@ class Restaurant:
     def add_to_orders_list(self, order: Order):
         self.orders.append(order)
 
-    def show_menu(self):
+    def show_menu(self, preferences=None):
         print("\n------MENU------")
+
+        print("MOST POPULAR")
+        for category, dish_name in self.mort_popular.items():
+            print(f'\t-{category}: {dish_name}')
+
+        if preferences is not None:
+            print("\nYOUR PREFERENCES")
+            for category, dish_name in preferences['preferences'].items():
+                print(f'\t-{category}: {dish_name}')
+
         print("\n------Starters------")
         for dish in self.menu:
             if dish.category.value == "Starter":
@@ -81,3 +93,27 @@ class Restaurant:
         if len(orders) == 0:
             raise NotFoundException("No order found for this customer.")
         return orders
+
+    def get_most_popular(self, orders=None):
+        if orders is None:
+            orders = self.orders
+
+        dishes_ordered = {"Starter": [], "Main course": [], "Dessert": []}
+        most_popular_dishes = {"Starter": "", "Main course": "", "Dessert": ""}
+        for order in orders:
+            dishes_ordered = Order.sort_order(order, dishes_ordered)
+        for category, dishes in dishes_ordered.items():
+            most_popular = max(dishes, key=lambda x: list(x.values())[0]['quantity'])
+            most_popular_dishes[category] = list(most_popular.keys())[0]
+
+        return most_popular_dishes
+
+    def set_restaurant_most_popular(self):
+        self.mort_popular = self.get_most_popular()
+
+    def get_customer_preferences(self, customer: Customer):
+        try:
+            customer_orders = self.get_orders_by_customer(customer)
+        except NotFoundException as e:
+            return {'preferences': None, "error": 'New customer; no preferences for this customer'}
+        return {'preferences': self.get_most_popular(customer_orders), "error": None}

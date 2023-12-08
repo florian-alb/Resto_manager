@@ -11,6 +11,9 @@ if __name__ == '__main__':
     resto.customers = customers_from_json()
     resto.orders = orders_from_json()
 
+    # most popular setup
+    resto.set_restaurant_most_popular()
+
     while True:
         display_menu(resto)
 
