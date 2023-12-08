@@ -1,3 +1,4 @@
+from datetime import datetime
 from Models import Customer, Dish
 from Models.Dish import *
 
@@ -5,11 +6,16 @@ from Models.Dish import *
 class Order:
     ID = 0
 
-    def __init__(self, customer_id: int, order_id=None, order=None, status=False):
+    def __init__(self, customer_id: int, order_id=None, order=None, status=False, order_date=None):
         if order is None:
             self.order = {"Starter": [], "Main course": [], "Dessert": []}
         else:
             self.order = order
+
+        if order_date is None:
+            self.order_date = datetime.now()
+        else:
+            self.order_date = order_date
 
         if order_id is None:
             Order.ID += 1
@@ -86,7 +92,7 @@ class Order:
 
         # invoice printing
         print("\n-------YOUR INVOICE------")
-        print(f"-- Invoice n°: {self.ID} --")
+        print(f"-- Invoice n°: {self.ID} -- Date: {self.order_date.strftime('%A %d %B %Y')}")
         print(f"-- Customer : {customer.firstname} {customer.lastname} {customer.phone_number}")
         self.print_sorted_order(self.sort_order())
         print(f"\n---- TOTAL: {self.get_price()} ----\n")
@@ -101,6 +107,7 @@ class Order:
         return {
             'order_id': self.ID,
             'customer_id': self.customer_id,
+            'date': self.order_date.strftime('%d-%m-%Y'),
             'is_payed': self.status,
             'order_items': order_items
         }
@@ -114,7 +121,8 @@ class Order:
             json_data['customer_id'],
             json_data['order_id'],
             None,
-            json_data['is_payed']
+            json_data['is_payed'],
+            datetime.strptime(json_data['date'],'%d-%m-%Y')
         )
 
         for category, dish_list in json_data['order_items'].items():
