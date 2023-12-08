@@ -14,7 +14,7 @@ def display_menu(restaurant: Restaurant):
     print("5. Modify a dish")
     print("6. Create an order")
     print("7. Add a dish to an order")
-    print("8. Print an order")
+    print("8. Print an invoice")
     print("9. Quit")
 
     choice = input("Choose an option: ")
@@ -78,7 +78,7 @@ def display_menu(restaurant: Restaurant):
             print("Order not found.")
 
     elif choice == "8":
-        restaurant.show_orders()
+        print_order(restaurant)
 
     elif choice == "9":
         print("Thank you for using our program. Goodbye!")
@@ -128,6 +128,9 @@ def create_order(restaurant: Restaurant):
             restaurant.add_to_orders_list(order)
             print("Order created successfully.")
 
+            # save the order
+            save_order_to_json(restaurant.orders)
+
             # add dish to the order
             edit_order(order, restaurant)
 
@@ -153,3 +156,23 @@ def edit_order(order: Order, restaurant: Restaurant):
             save_order_to_json(restaurant.orders)
         else:
             print("Dish not found.")
+
+
+def print_order(restaurant):
+    restaurant.show_orders()
+    while True:
+        try:
+            order_id = int(input("Enter the ID of the order to print or 0 to exit: "))
+            if order_id == 0:
+                return
+            order = restaurant.find_order_by_id(order_id)
+            if order:
+                order.print_invoice(restaurant)
+
+                # save the customer
+                save_customer_to_json(restaurant.customers)
+
+            else:
+                print("Order not found.")
+        except ValueError:
+            print('Please enter an integer')

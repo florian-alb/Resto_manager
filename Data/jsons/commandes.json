@@ -4,40 +4,46 @@
     "customer_id": 1,
     "is_payed": false,
     "order_items": {
-      "Main course": [
+      "Starter": [
         {
-          "quantity": 1,
-          "dish": {
-            "ID": 1,
-            "name": "pates carbo",
-            "description": "au top",
-            "price": 20.0,
-            "category": "Main course"
-          }
-        }
-      ],
-      "Dessert": [
-        {
-          "quantity": 2,
-          "dish": {
-            "ID": 3,
-            "name": "gato",
-            "description": "chocolat",
-            "price": 8.0,
-            "category": "Dessert"
-          }
+          "ID": 2,
+          "name": "salade cesar",
+          "description": "salade oklm",
+          "price": 12.0,
+          "category": "Starter"
         },
         {
-          "quantity": 1,
-          "dish": {
-            "ID": 4,
-            "name": "tarte",
-            "description": "fraises",
-            "price": 9.0,
-            "category": "Dessert"
-          }
+          "ID": 5,
+          "name": "oeufs en gel\u00e9e",
+          "description": "oeufs durs de mamie",
+          "price": 8.5,
+          "category": "Starter"
         }
-      ]
+      ],
+      "Main course": [
+        {
+          "ID": 1,
+          "name": "pates carbo",
+          "description": "au top",
+          "price": 20.0,
+          "category": "Main course"
+        },
+        {
+          "ID": 1,
+          "name": "pates carbo",
+          "description": "au top",
+          "price": 20.0,
+          "category": "Main course"
+        },
+        {
+          "ID": 1,
+          "name": "pates carbo",
+          "description": "au top",
+          "price": 20.0,
+          "category": "Main course"
+        }
+      ],
+      "Dessert": []
     }
   }
 ]
