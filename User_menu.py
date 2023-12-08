@@ -19,6 +19,7 @@ def display_menu(restaurant: Restaurant):
     print("7. Add a dish to an order")
     print("8. Print an invoice")
     print("9. Get invoices for a specific date")
+    print("10. Get invoices for a specific customer")
     print("0. Quit")
 
     choice = input("Choose an option: ")
@@ -51,15 +52,7 @@ def display_menu(restaurant: Restaurant):
         dish.show()
         print("Recipe created successfully.")
     elif choice == "5":
-        restaurant.show_menu()
-        dish_name = input("Enter the name of the dish to modify: ")
-        dish = restaurant.find_dish_by_name(dish_name)
-        if dish:
-            dish.update_dish()
-            dish.show()
-            print("Dish modified successfully.")
-        else:
-            print("Dish not found.")
+        modify_dish(restaurant)
     elif choice == "6":
         create_order(restaurant)
 
@@ -85,7 +78,10 @@ def display_menu(restaurant: Restaurant):
         print_order(restaurant)
 
     elif choice == "9":
-        export_orders(restaurant)
+        export_orders_by_date(restaurant)
+
+    elif choice == "10":
+        export_orders_by_customer(restaurant)
 
     elif choice == "0":
         print("Thank you for using our program. Goodbye!")
@@ -93,6 +89,25 @@ def display_menu(restaurant: Restaurant):
 
     else:
         print("Invalid option. Please choose a valid option.")
+
+
+def modify_dish(restaurant):
+    while True:
+        restaurant.show_menu()
+        try:
+            dish_id = int(input("Enter the id of the dish to modify or 0 to Exit: "))
+            if dish_id == 0:
+                return
+        except ValueError:
+            print('Please enter an integer')
+            break
+        dish = restaurant.find_dish_by_id(dish_id)
+        if dish:
+            dish.update_dish()
+            dish.show()
+            print("Dish modified successfully.")
+        else:
+            print("Dish not found.")
 
 
 def create_order(restaurant: Restaurant):
@@ -185,7 +200,7 @@ def print_order(restaurant):
             print('Please enter an integer')
 
 
-def export_orders(restaurant):
+def export_orders_by_date(restaurant):
     while True:
         str_date = input("Enter the date of the order to print or 0 to exit (format DD-MM-YYYY): ")
 
@@ -201,5 +216,27 @@ def export_orders(restaurant):
         try:
             orders = restaurant.get_orders_by_date(date)
             save_order_to_json(orders, f"Data/orders_export/order_{str_date}.json")
+        except NotFoundException as e:
+            print(e.message)
+
+
+def export_orders_by_customer(restaurant):
+    while True:
+        restaurant.show_customers()
+        str_id = input("Enter the ID of the customer to export all his orders or print 0 to exit: ")
+
+        if str_id == '0':
+            return
+
+        try:
+            customer_id = int(str_id)
+        except ValueError:
+            print('Please enter an integer')
+            break
+
+        try:
+            customer = restaurant.find_customer_by_id(customer_id)
+            orders = restaurant.get_orders_by_customer(customer)
+            save_order_to_json(orders, f"Data/orders_export/order_customer{customer.ID}.json")
         except NotFoundException as e:
             print(e.message)

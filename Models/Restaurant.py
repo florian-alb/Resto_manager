@@ -71,6 +71,13 @@ class Restaurant:
                 orders.append(order)
         if len(orders) == 0:
             raise NotFoundException("No order found at this date.")
+        return orders
 
-        print(len(orders))
+    def get_orders_by_customer(self, customer: Customer):
+        orders = []
+        for order in self.orders:
+            if order.customer_id == customer.ID:
+                orders.append(order)
+        if len(orders) == 0:
+            raise NotFoundException("No order found for this customer.")
         return orders

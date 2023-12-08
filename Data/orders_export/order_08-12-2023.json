@@ -1,0 +1,51 @@
+[
+  {
+    "order_id": 1,
+    "customer_id": 1,
+    "date": "08-12-2023",
+    "is_payed": false,
+    "order_items": {
+      "Starter": [
+        {
+          "ID": 2,
+          "name": "salade cesar",
+          "description": "salade oklm",
+          "price": 12.0,
+          "category": "Starter"
+        }
+      ],
+      "Main course": [
+        {
+          "ID": 1,
+          "name": "pates carbo",
+          "description": "au top",
+          "price": 20.0,
+          "category": "Main course"
+        }
+      ],
+      "Dessert": [
+        {
+          "ID": 3,
+          "name": "gato",
+          "description": "chocolat",
+          "price": 8.0,
+          "category": "Dessert"
+        },
+        {
+          "ID": 3,
+          "name": "gato",
+          "description": "chocolat",
+          "price": 8.0,
+          "category": "Dessert"
+        },
+        {
+          "ID": 4,
+          "name": "tarte",
+          "description": "fraises",
+          "price": 9.0,
+          "category": "Dessert"
+        }
+      ]
+    }
+  }
+]
