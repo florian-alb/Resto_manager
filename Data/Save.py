@@ -18,9 +18,9 @@ def save_customer_to_json(customers):
         json_file.write(dish_json)
 
 
-def save_order_to_json(orders):
+def save_order_to_json(orders, file_name='Data/jsons/commandes.json'):
     order_json = json.dumps([order.to_dict() for order in orders], indent=2)
-    with open('Data/jsons/commandes.json', 'w') as json_file:
+    with open(file_name, 'w') as json_file:
         json_file.write(order_json)
 
 

@@ -122,7 +122,7 @@ class Order:
             json_data['order_id'],
             None,
             json_data['is_payed'],
-            datetime.strptime(json_data['date'],'%d-%m-%Y')
+            datetime.strptime(json_data['date'], '%d-%m-%Y')
         )
 
         for category, dish_list in json_data['order_items'].items():

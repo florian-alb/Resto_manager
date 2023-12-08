@@ -47,5 +47,24 @@
         }
       ]
     }
+  },
+  {
+    "order_id": 2,
+    "customer_id": 1,
+    "date": "08-12-2023",
+    "is_payed": false,
+    "order_items": {
+      "Starter": [],
+      "Main course": [],
+      "Dessert": [
+        {
+          "ID": 3,
+          "name": "gato",
+          "description": "chocolat",
+          "price": 8.0,
+          "category": "Dessert"
+        }
+      ]
+    }
   }
 ]

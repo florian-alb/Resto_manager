@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from Data.Save import save_menu_to_json, save_customer_to_json, save_order_to_json
+from Exceptions.NotFoundException import NotFoundException
 from Models.Customer import Customer
 from Models.Order import Order
 from Models.Dish import Dish
@@ -15,7 +18,8 @@ def display_menu(restaurant: Restaurant):
     print("6. Create an order")
     print("7. Add a dish to an order")
     print("8. Print an invoice")
-    print("9. Quit")
+    print("9. Get invoices for a specific date")
+    print("0. Quit")
 
     choice = input("Choose an option: ")
 
@@ -81,6 +85,9 @@ def display_menu(restaurant: Restaurant):
         print_order(restaurant)
 
     elif choice == "9":
+        export_orders(restaurant)
+
+    elif choice == "0":
         print("Thank you for using our program. Goodbye!")
         exit()
 
@@ -176,3 +183,23 @@ def print_order(restaurant):
                 print("Order not found.")
         except ValueError:
             print('Please enter an integer')
+
+
+def export_orders(restaurant):
+    while True:
+        str_date = input("Enter the date of the order to print or 0 to exit (format DD-MM-YYYY): ")
+
+        if str_date == '0':
+            return
+
+        try:
+            date = datetime.strptime(str_date, '%d-%m-%Y')
+        except ValueError:
+            print('Invalid date format')
+            break
+
+        try:
+            orders = restaurant.get_orders_by_date(date)
+            save_order_to_json(orders, f"Data/orders_export/order_{str_date}.json")
+        except NotFoundException as e:
+            print(e.message)

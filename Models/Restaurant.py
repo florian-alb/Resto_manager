@@ -1,3 +1,6 @@
+from datetime import datetime
+
+from Exceptions.NotFoundException import NotFoundException
 from Models.Customer import Customer
 from Models.Order import Order
 from Models.Dish import Dish
@@ -60,3 +63,14 @@ class Restaurant:
             if order.ID == order_id:
                 return order
         return None
+
+    def get_orders_by_date(self, date: datetime):
+        orders = []
+        for order in self.orders:
+            if order.order_date == date:
+                orders.append(order)
+        if len(orders) == 0:
+            raise NotFoundException("No order found at this date.")
+
+        print(len(orders))
+        return orders
