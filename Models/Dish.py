@@ -52,7 +52,7 @@ class Dish:
     def update_dish(self):
         name = input("Enter the new name of the dish: (type nothing to keep the previous name)")
         description = input("Enter the description of the dish: (type nothing to keep the previous description)")
-        price = float(input("Enter the price of the dish: (type nothing to keep the previous price)"))
+        price = input("Enter the price of the dish: (type nothing to keep the previous price)")
 
         if name != "":
             self.name = name
@@ -60,8 +60,11 @@ class Dish:
         if description != "":
             self.description = description
 
-        if price != 0:
-            self.price = price
+        if price != "":
+            try:
+                self.price = float(price)
+            except ValueError:
+                print(f"Invalid price. Please enter numeric value. Dish price in not updated.")
 
     def to_dict(self):
         return {

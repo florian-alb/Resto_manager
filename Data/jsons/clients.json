@@ -2,8 +2,15 @@
   {
     "customer_id": 1,
     "firstname": "Flo",
-    "lastname": "Albo",
+    "lastname": "ALBORA",
     "phone_number": "0707",
-    "total_spend": 57.0
+    "total_spend": 0
+  },
+  {
+    "customer_id": 2,
+    "firstname": "Ludovic",
+    "lastname": "Roux",
+    "phone_number": "0707070",
+    "total_spend": 0
   }
 ]
