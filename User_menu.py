@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 
 from Data.Save import save_menu_to_json, save_customer_to_json, save_order_to_json
@@ -197,6 +198,10 @@ def print_order(restaurant):
 
                 # save the customer
                 save_customer_to_json(restaurant.customers)
+
+                # export an invoice in PDF
+                pdf_filename = f"invoice_{order.ID}_customer{order.customer_id}.pdf"
+                order.generate_invoice_pdf(pdf_filename, restaurant)
 
             else:
                 print("Order not found.")

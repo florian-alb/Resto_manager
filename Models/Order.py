@@ -2,6 +2,10 @@ from datetime import datetime
 from Models import Customer, Dish
 from Models.Dish import *
 
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.lib import colors
+from reportlab.lib.styles import ParagraphStyle
 
 class Order:
     ID = 0
@@ -132,3 +136,76 @@ class Order:
             order.order[category] = dishes
 
         return order
+
+    def generate_invoice_pdf(self, filename, restaurant):
+        filename = "Invoices/" + filename
+
+        customer = restaurant.find_customer_by_id(self.customer_id)
+
+        if customer is None:
+            print("Error: Customer not found")
+            return
+
+        invoice_data = {
+            "invoice_number": str(self.ID),
+            "invoice_date": self.order_date.strftime("%A %d %B %Y"),
+            "customer": f"{customer.firstname} {customer.lastname}",
+            "items": self.sort_order(),
+            "total": self.get_price(),
+        }
+
+        document = SimpleDocTemplate(filename, pagesize=letter)
+
+        style_normal = ParagraphStyle(name='Normal')
+        style_centered = ParagraphStyle(name='Center', alignment=1)
+
+        content = []
+
+        header_text = "-------YOUR INVOICE-------"
+        content.append(Paragraph(header_text, style_centered))
+        content.append(Spacer(1, 12))
+
+        invoice_info = [
+            f"-- Invoice n°: {invoice_data['invoice_number']} -- Date: {invoice_data['invoice_date']}",
+            f"-- Customer : {invoice_data['customer']}",
+        ]
+        for info in invoice_info:
+            content.append(Paragraph(info, style_normal))
+
+        content.append(Spacer(1, 12))
+
+        item_data = []
+        for category, dishes in invoice_data['items'].items():
+            for item in dishes:
+                item_row = [
+                    category,
+                    list(item.keys())[0],
+                    f"Quantity: {item[list(item.keys())[0]]['quantity']}",
+                    f"Price: {item[list(item.keys())[0]]['price']}€",
+                    f"TOTAL PRICE: {item[list(item.keys())[0]]['quantity'] * item[list(item.keys())[0]]['price']}€",
+                ]
+                item_data.append(item_row)
+
+        item_table = Table(item_data, colWidths=[100, 150, 100, 100, 150])
+        item_table.setStyle(TableStyle([
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('BACKGROUND', (0, 0), (-1, -1), colors.beige),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black),
+            ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+            ('BOTTOMPADDING', (0, 1), (-1, -1), 6),
+        ]))
+
+        content.append(item_table)
+        content.append(Spacer(1, 12))
+
+        total_text = f"---- TOTAL: {invoice_data['total']} ----"
+        content.append(Paragraph(total_text, style_centered))
+
+        content.append(Spacer(1, 12))
+        content.append(Paragraph("--Thank you--", style_centered))
+
+        document.build(content)
+        print(f"The receipt was created under the name '{filename}'")
+
