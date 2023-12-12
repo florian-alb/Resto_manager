@@ -189,12 +189,10 @@ class Order:
         item_table = Table(item_data, colWidths=[100, 150, 100, 100, 150])
         item_table.setStyle(TableStyle([
             ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
             ('BACKGROUND', (0, 0), (-1, -1), colors.beige),
             ('GRID', (0, 0), (-1, -1), 1, colors.black),
-            ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
-            ('BOTTOMPADDING', (0, 1), (-1, -1), 6),
+            ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
         ]))
 
         content.append(item_table)
