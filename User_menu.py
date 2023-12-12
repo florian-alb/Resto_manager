@@ -96,7 +96,7 @@ def modify_dish(restaurant):
         restaurant.show_menu()
         try:
             dish_id = int(input("Enter the id of the dish to modify or 0 to Exit: "))
-            if dish_id == "0":
+            if dish_id == 0:
                 return
         except ValueError:
             print('Please enter an integer')

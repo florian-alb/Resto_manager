@@ -4,13 +4,20 @@
     "firstname": "Flo",
     "lastname": "ALBORA",
     "phone_number": "0707",
-    "total_spend": 0
+    "total_spend": 57.0
   },
   {
     "customer_id": 2,
     "firstname": "Ludovic",
     "lastname": "Roux",
     "phone_number": "0707070",
+    "total_spend": 0
+  },
+  {
+    "customer_id": 3,
+    "firstname": "zizi",
+    "lastname": "copt\u00e8re",
+    "phone_number": "\u00a7\u00e7",
     "total_spend": 0
   }
 ]
